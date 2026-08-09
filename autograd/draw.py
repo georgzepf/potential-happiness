@@ -26,7 +26,11 @@ class Draw:
 
         for node in nodes:
             node_uid = str(id(node))
-            dot.node(name=node_uid, label=str(node.data), shape="record")
+            dot.node(
+                name=node_uid,
+                label=f"data {node.data:.4f} | grad {node.grad:.4f}",
+                shape="record",
+            )
 
             if node._op:
                 dot.node(
