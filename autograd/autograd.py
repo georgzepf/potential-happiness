@@ -1,3 +1,6 @@
+import math
+
+
 # implements the autograd behavior described in `notes.ipynb`
 class Value:
     def __init__(self, data, _children=(), _op=""):
@@ -56,6 +59,21 @@ class Value:
 
         for v in reversed(topo):
             v._backward()
+
+    def tanh(
+        self,
+    ):  # takes a single real number and maps it to a range between -1 and 1
+        x = self.data
+        t = (math.exp(2 * x) - 1) / (math.exp(2 * x) + 1)
+
+        out = Value(t, (self,), "tanh")
+
+        def backward():
+            self.grad += (1 - t**2) * out.grad  # `grad` values should add up!
+
+        out._backward = backward
+
+        return out
 
     def __radd__(self, other):
         return self + other
