@@ -7,9 +7,9 @@ class Value:
         self.data = data
         self.grad = 0.0  # dL/dself (this value's part of the gradient)
 
-        self._children = tuple(
+        self._children = set(
             _children
-        )  # explicitly a tuple as in the case of a * a, `_children` needs to hold the same `Value` twice
+        )  #  tuple for input convenience, set for performance
         self._op = _op
 
         self._backward = lambda: None
