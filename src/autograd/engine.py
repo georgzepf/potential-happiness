@@ -1,7 +1,7 @@
 import math
 
 
-# implements the autograd behavior described in `notes.ipynb`
+# implements the autograd behavior described in `notebooks/autograd.ipynb`
 class Value:
     def __init__(self, data, _children=(), _op=""):
         self.data = data
