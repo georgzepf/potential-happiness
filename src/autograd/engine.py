@@ -1,7 +1,7 @@
 import math
 
 
-# implements the autograd behavior described in `notebooks/autograd-MLP.ipynb`
+# implements the autograd behavior described in notebooks/autograd-MLP.ipynb
 class Value:
     def __init__(self, data, _children=(), _op=""):
         self.data = data
@@ -9,7 +9,7 @@ class Value:
 
         self._children = set(
             _children
-        )  #  tuple for input convenience, set for performance
+        )  # tuple for input convenience, set for performance
         self._op = _op
 
         self._backward = lambda: None
@@ -20,8 +20,8 @@ class Value:
         out = Value(self.data + other.data, (self, other), "+")
 
         def backward():
-            self.grad += out.grad  # `grad` values should add up!
-            other.grad += out.grad  # `grad` values should add up!
+            self.grad += out.grad  # accumulate, don't overwrite!
+            other.grad += out.grad  # accumulate, don't overwrite!
 
         out._backward = backward
 
@@ -33,21 +33,21 @@ class Value:
         out = Value(self.data * other.data, (self, other), "*")
 
         def backward():
-            self.grad += other.data * out.grad  # `grad` values should add up!
-            other.grad += self.data * out.grad  # `grad` values should add up!
+            self.grad += other.data * out.grad  # accumulate, don't overwrite!
+            other.grad += self.data * out.grad  # accumulate, don't overwrite!
 
         out._backward = backward
 
         return out
 
     def backward(self):
-        self.grad = 1.0  # backward` is called on assumably the loss function itself; therefore set grad to 1.0
+        self.grad = 1.0  # `backward` is called on assumably the loss function itself; therefore set grad to 1.0
 
         topo = []  # list keeps ordering and allows mutation
         visited = set()
 
         def build_topo(
-            parent,
+                parent,
         ):  # build the ordered list `topo`; ensures each parent is only added after its children
             if parent not in visited:
                 visited.add(parent)
@@ -61,7 +61,7 @@ class Value:
             v._backward()
 
     def tanh(
-        self,
+            self,
     ):  # takes a single real number and maps it to a range between -1 and 1
         x = self.data
         t = (math.exp(2 * x) - 1) / (math.exp(2 * x) + 1)
@@ -69,7 +69,7 @@ class Value:
         out = Value(t, (self,), "tanh")
 
         def backward():
-            self.grad += (1 - t**2) * out.grad  # `grad` values should add up!
+            self.grad += (1 - t ** 2) * out.grad  # accumulate, don't overwrite!
 
         out._backward = backward
 
