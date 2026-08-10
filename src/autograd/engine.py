@@ -1,7 +1,7 @@
 import math
 
 
-# implements the autograd behavior described in notebooks/autograd-MLP.ipynb
+# implements the simple (scalar-based) autograd behavior described in notebooks/autograd-MLP.ipynb
 class Value:
     def __init__(self, data, _children=(), _op=""):
         self.data = data
