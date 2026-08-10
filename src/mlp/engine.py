@@ -1,4 +1,4 @@
-# implements the simple MLP described in notebooks/autograd-MLP.ipynb
+# implements the simple MLP described in notebooks/autograd+MLP.ipynb
 import random
 from abc import ABC, abstractmethod
 from collections.abc import Sequence

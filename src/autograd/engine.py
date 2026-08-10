@@ -1,7 +1,7 @@
 import math
 
 
-# implements the simple (scalar-based) autograd behavior described in notebooks/autograd-MLP.ipynb
+# implements the simple (scalar-based) autograd behavior described in notebooks/autograd+MLP.ipynb
 class Value:
     def __init__(self, data, _children=(), _op=""):
         self.data = data
@@ -35,6 +35,18 @@ class Value:
         def backward():
             self.grad += other.data * out.grad  # accumulate, don't overwrite!
             other.grad += self.data * out.grad  # accumulate, don't overwrite!
+
+        out._backward = backward
+
+        return out
+
+    def __pow__(self, other):
+        assert isinstance(other, (int, float)), "only supporting int/float powers"
+
+        out = Value(self.data ** other, (self,), f"**{other}")
+
+        def backward():
+            self.grad += (other * self.data ** (other - 1)) * out.grad  # accumulate, don't overwrite!
 
         out._backward = backward
 
@@ -74,6 +86,9 @@ class Value:
         out._backward = backward
 
         return out
+
+    def __sub__(self, other):
+        return self + (-other)
 
     def __radd__(self, other):
         return self + other
