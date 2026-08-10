@@ -12,11 +12,11 @@ source .venv/bin/activate
 ```
 
 ```
-# install deps
-python -m pip install -e .
-
 # install dev deps
 python -m pip install -e ".[dev]"
+
+# install deps (none currently)
+python -m pip install -e .
 ```
 
 ```
