@@ -1,1 +1,1 @@
-from .engine import Neuron, Layer, MLP
+from .mlp_tanh import Neuron, Layer, MLP

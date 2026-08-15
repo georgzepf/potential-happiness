@@ -3,7 +3,7 @@ from graphviz import Digraph
 
 class Draw:
     def __init__(self, root):
-        self.root = root
+        self._root = root
 
     def _trace(self):
         nodes, edges = set(), set()
@@ -17,7 +17,7 @@ class Draw:
 
                     build(child)
 
-        build(self.root)
+        build(self._root)
         return nodes, edges
 
     def __call__(self):

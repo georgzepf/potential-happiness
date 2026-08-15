@@ -1,4 +1,5 @@
 # implements the simple MLP described in notebooks/autograd+MLP.ipynb
+import math
 import random
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
@@ -19,7 +20,12 @@ class Module(ABC):
 
 class Neuron(Module):
     def __init__(self, n_in: int) -> None:
-        self.w = [Value(random.uniform(-1, 1)) for _ in range(n_in)]
+        self.w = [
+            # dividing each initial weight by math.sqrt(n_in) keeps pre-activation variance roughly constant,
+            # regardless of layer width -> prevents tanh saturation
+            Value(random.uniform(-1, 1) / math.sqrt(n_in))
+            for _ in range(n_in)
+        ]
         self.b = Value(0)
 
     # Neuron activation
@@ -64,13 +70,13 @@ class MLP(Module):
         # shapes match by construction, no separate check needed
         self.layers = [Layer(size[i], size[i + 1]) for i in range(len(n_outs))]
 
-    def __call__(self, x: Sequence[float]) -> Value | Sequence[Value]:
+    def __call__(self, x: Sequence[float]) -> Sequence[Value]:
         activations: Sequence[float | Value] = x
         for layer in self.layers:
             activations = layer(activations)
 
         values: Sequence[Value] = cast(Sequence[Value], activations)
-        return values[0] if len(values) == 1 else values
+        return values
 
     def parameters(self) -> Sequence[Value]:
         return [p for l in self.layers for p in l.parameters()]
