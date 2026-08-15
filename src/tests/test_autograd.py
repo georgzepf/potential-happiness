@@ -1,6 +1,6 @@
 from torch import Tensor
 
-from autograd import Value
+from scalar_autograd import Value
 
 
 def test_autograd():

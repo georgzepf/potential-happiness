@@ -1,6 +1,6 @@
 from typing import Callable, Sequence
 
-from autograd import Value
+from scalar_autograd import Value
 
 LossFunction = Callable[[Sequence[Value], Sequence[float]], Value]
 

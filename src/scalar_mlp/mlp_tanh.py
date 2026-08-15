@@ -1,11 +1,11 @@
-# implements the simple MLP described in notebooks/autograd+MLP.ipynb
+# implements the simple MLP described in notebooks/scalar_autograd+MLP.ipynb
 import math
 import random
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import cast
 
-from autograd import Value
+from scalar_autograd import Value
 
 
 class Module(ABC):
@@ -60,7 +60,7 @@ class Layer(Module):
         return f"Layer of [{', '.join(str(n) for n in self.neurons)}]"
 
 
-class MLP(Module):
+class MLPtanh(Module):
     def __init__(self, n_in: int, n_outs: Sequence[int]) -> None:
         # explicit conversion, as list cannot be concatenated with type Sequence
         size = [n_in] + list(n_outs)

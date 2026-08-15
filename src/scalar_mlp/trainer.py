@@ -4,13 +4,13 @@ from typing import Self
 
 from .loss import LossFunction
 from .lr import LrSchedule, constant
-from .mlp_tanh import MLP
+from .mlp_tanh import MLPtanh
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Trainer:
-    def __init__(self, model: MLP, loss_fn: LossFunction, x_train, y_train, model_name: str) -> None:
+    def __init__(self, model: MLPtanh, loss_fn: LossFunction, x_train, y_train, model_name: str) -> None:
         self._model = model
         self.loss_fn = loss_fn
 

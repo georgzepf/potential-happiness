@@ -1,10 +1,10 @@
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 
-from mlp import MLP
-from mlp.loss import mse
-from mlp.lr import linear_decay
-from mlp.trainer import Trainer
+from scalar_mlp import MLPtanh
+from scalar_mlp.loss import mse
+from scalar_mlp.lr import linear_decay
+from scalar_mlp.trainer import Trainer
 
 # NOTE: see real_datasets/UCI_ML_Breast_Cancer/dataset_exploration.ipynb
 
@@ -42,7 +42,7 @@ y_test = [1.0 if label == 1 else -1.0 for label in y_test_raw]
 
 # training
 
-model = MLP(30, [15, 15, 1])
+model = MLPtanh(30, [15, 15, 1])
 trainer = Trainer(model, mse, x_train, y_train, "uci_ml_breast_cancer")
 
 (trainer
