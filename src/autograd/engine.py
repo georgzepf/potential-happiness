@@ -96,5 +96,8 @@ class Value:
     def __rmul__(self, other):
         return self * other
 
+    def __truediv__(self, other):
+        return self * other ** -1
+
     def __repr__(self):
         return f"Value(data={self.data:.4f}, grad={self.grad:.4f})"
