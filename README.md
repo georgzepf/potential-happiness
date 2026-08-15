@@ -10,8 +10,8 @@ includes my own notes woven throughout the notebooks, documenting the concepts a
 
 **progress**
 
-so far I've built out the [autograd](src/autograd/engine.py) and [tanh-MLP](src/mlp/mlp_tanh.py) implementations shown
-(via gradient descent), and used their concepts to build and train a model from scratch for
+so far I've built out the [autograd](src/autograd/engine.py) and [tanh-MLP](src/mlp/mlp_tanh.py) implementations shown,
+and used them to train a model from scratch (plain gradient descent, no optimizer library) on
 the [UCI ML Breast Cancer Wisconsin (diagnostic)](https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-wisconsin-diagnostic-dataset)
 dataset ([trainer.py](src/mlp/trainer.py), [run.py](real_datasets/UCI_ML_Breast_Cancer/run.py))
 
