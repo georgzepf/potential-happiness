@@ -14,7 +14,12 @@ y = dataset.target
 
 # saving 20% of samples for testing the model
 x_train_raw, x_test_raw, y_train_raw, y_test_raw = train_test_split(
-    x, y, test_size=0.2, random_state=26
+    x,
+    y,
+    test_size=0.2,
+    # random_state=np.random.RandomState(2233),
+    # as the split between malignant/benign in the dataset is not even, stratify=y makes sure this is taken into account when splitting
+    stratify=y
 )
 
 # preparing x
